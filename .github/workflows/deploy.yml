@@ -19,10 +19,10 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
-        #with:
+        with:
           # GitHub Actions 有一个内置的保护机制，为了防止无限循环，由 GITHUB_TOKEN（Actions 运行时自动生成的令牌）触发的 git push 事件，默认情况下不会再次触发同一个仓库中监听 push 事件的工作流程。
           # 使用 PAT 进行 checkout，以便后续可以推送
-        #  token: ${{ secrets.ACTIONS_PAT }}
+          token: ${{ secrets.ACTIONS_PAT }}
 
       # - name: 登录到Docker Hub
       #   uses: docker/login-action@v3
