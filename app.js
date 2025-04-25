@@ -35,6 +35,7 @@ async function getIP() {
     // });
 }
 
+
 const server = createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end(`${new Date().toLocaleString()} - ${JSON.stringify(await getIP())}`);
