@@ -1,0 +1,66 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 登录到Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: 构建和推送Docker镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+            ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
+
+      - name: 运行容器进行测试
+        timeout-minutes: 10
+        run: |
+          hostname -I
+          curl ipinfo.io
+          echo "Run ID: ${{ github.run_id }}"
+          sed -i -e 's/USER/${{ github.actor }}/' -e 's/PROXY1/PROXY1#${{ github.run_id }}/' -e 's/PROXY2/PROXY2#${{ github.run_id }}/' ./frpc.toml
+          cat ./frpc.toml
+          docker run -d \
+          -v ./frpc.toml:/etc/frp/frpc.toml \
+          --add-host host.docker.internal:172.17.0.1 \
+          snowdreamtech/frpc
+          docker run -d \
+          -p 8388:8388/tcp \
+          -p 8388:8388/udp \
+          -e TZ=Asia/Shanghai \
+          -e METHOD=aes-256-gcm \
+          -e PASSWORD=6a17a5dd-5f76-4b09-b567-9b0d5d449da5 \
+          shadowsocks/shadowsocks-libev
+          #docker run --rm -p 3000:3000 --add-host host.docker.internal=172.17.0.1 ${{ secrets.DOCKER_USERNAME }}/my-app:latest &
+          #wait
+          sleep 15
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          echo "$(curl https://api.ipify.org)" >> README.md
+          git add README.md
+          git commit -m "Update README via GitHub Actions"
+          git push origin main

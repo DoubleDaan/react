@@ -1,0 +1,15 @@
+services:
+  frpc:
+    image: snowdreamtech/frpc
+    volumes:
+      - ./frpc.toml:/etc/frp/frpc.toml
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+
+  frps:
+    image: snowdreamtech/frps
+    network_mode: host
+    volumes:
+      - ./frps.toml:/etc/frp/frps.toml
+    restart: unless-stopped
