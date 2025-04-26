@@ -45,10 +45,12 @@ jobs:
         run: |
           hostname -I
           curl ipinfo.io
-          echo "开始ping"
+         
           # sudo apt install speedtest-cli
           # speedtest-cli
+          echo "开始安装"
           sudo apt install iperf3
+          echo "安装完成"
           iperf3 -c 8.218.143.95
           echo "结束ping"
           echo "Run ID: ${{ github.run_id }}"
