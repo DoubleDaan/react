@@ -11,7 +11,7 @@ auth.token = "2f1d3a0e-9b64-4b91-b76b-8cb4a2f2e5d3"
 [[proxies]]
 name = "SSH1"
 type = "tcp"
-localIP = "8.218.143.95"
+localIP = "172.17.0.1"
 localPort = 1234
 remotePort = 1234
 
