@@ -42,6 +42,7 @@ jobs:
 
       - name: 运行容器
         # timeout-minutes: 10
+        post: 'cleanup.js'
         run: |
           # 定义清理函数
           cleanup() {
