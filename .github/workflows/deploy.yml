@@ -45,14 +45,7 @@ jobs:
         run: |
           hostname -I
           curl ipinfo.io
-         
-          # sudo apt install speedtest-cli
-          # speedtest-cli
-          echo "开始安装"
-          sudo apt install iperf3
-          echo "安装完成"
-          iperf3 -c 8.218.143.95
-          echo "结束ping"
+          
           echo "Run ID: ${{ github.run_id }}"
           sed -i -e 's/USER/${{ github.actor }}/' -e 's/PROXY1/PROXY1#${{ github.run_id }}/' -e 's/PROXY2/PROXY2#${{ github.run_id }}/' ./frpc.toml
           cat ./frpc.toml
