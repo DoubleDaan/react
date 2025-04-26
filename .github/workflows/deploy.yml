@@ -17,6 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 运行时间
+        run: |
+          export TZ='Asia/Shanghai'
+          echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "当前时间戳: $(date +%s)"
+
       - name: 检出代码
         uses: actions/checkout@v4
         with:
