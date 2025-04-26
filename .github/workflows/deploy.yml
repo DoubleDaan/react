@@ -43,7 +43,6 @@ jobs:
       - name: 运行容器
         # timeout-minutes: 10
         run: |
-          hostname -I
           curl ipinfo.io
           
           echo "Run ID: ${{ github.run_id }}"
