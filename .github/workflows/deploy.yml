@@ -68,11 +68,13 @@ jobs:
           snowdreamtech/frpc
           docker run -d -p 8388:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.217.1.158:8388
           
+          cd gamecenter
           docker-compose up -d mongo
           sleep 10
           docker-compose up -d app
           docker-compose logs -f
-          
+          cd ..
+
           sleep 3600
           
           git config user.name "GitHub Actions Bot"
