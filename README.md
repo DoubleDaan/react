@@ -1,4 +1,13 @@
 代理软件不能开启隧道，frpc.toml配置不能用域名
+
+timeout 3 tcpdump -w traffic.pcap
+apt install tshark -y
+tshark -r traffic.pcap -q -z conv,ip -Y "!(ip.src==10.0.0.0/8 || ip.src==172.16.0.0/12 || ip.src==192.168.0.0/16 || ip.dst==10.0.0.0/8 || ip.dst==172.16.0.0/12 || ip.dst==192.168.0.0/16)"
+
+my20250425@proton.me
+Pro***@******
+C35CIYNYZOIAF7QZW4H7GK7HDXB2X57L
+
 52.176.36.71
 172.183.215.61
 20.39.62.110
