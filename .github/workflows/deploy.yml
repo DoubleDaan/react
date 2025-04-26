@@ -25,26 +25,12 @@ jobs:
 
       - name: 检出代码
         uses: actions/checkout@v4
+
+      - name: 登录到Docker Hub
+        uses: docker/login-action@v3
         with:
-          # GitHub Actions 有一个内置的保护机制，为了防止无限循环，由 GITHUB_TOKEN（Actions 运行时自动生成的令牌）触发的 git push 事件，默认情况下不会再次触发同一个仓库中监听 push 事件的工作流程。
-          # 使用 PAT 进行 checkout，以便后续可以推送
-          token: ${{ secrets.ACTIONS_PAT }}
-
-      # - name: 登录到Docker Hub
-      #   uses: docker/login-action@v3
-      #   with:
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
-
-      # - name: 构建和推送Docker镜像
-      #   uses: docker/build-push-action@v5
-      #   with:
-      #     context: .
-      #     file: ./Dockerfile
-      #     push: false
-      #     tags: |
-      #       ${{ secrets.DOCKER_USERNAME }}/my-app:latest
-      #       ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: 运行容器
         run: |
@@ -54,31 +40,27 @@ jobs:
           chmod +x /usr/local/bin/docker-compose
           
           echo "Run ID: ${{ github.run_id }}"
-          sed -i -e 's/USER/${{ github.actor }}/' -e 's/PROXY1/PROXY1#${{ github.run_id }}/' -e 's/PROXY2/PROXY2#${{ github.run_id }}/' ./frpc.toml
-          cat ./frpc.toml
+          sed -i -e 's/USER/${{ github.actor }}/' ./frpc.toml
+          # cat ./frpc.toml
           docker run -d \
           --name frpc \
           -v ./frpc.toml:/etc/frp/frpc.toml \
           --add-host host.docker.internal:172.17.0.1 \
           snowdreamtech/frpc
-          docker run -d -p 8388:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.217.1.158:8388
+          # docker run -d -p 8388:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.217.1.158:8388
           
           cd gamecenter
           docker-compose up -d mongo
           sleep 5
           docker-compose up -d app
           docker-compose logs -f app
-          cd ..
 
-          sleep 3600
-
-      - name: Cleanup
+      - name: 保存数据库
         if: always()  # 确保无论成功或失败都运行
         run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
-          echo "$(curl https://api.ipify.org)" >> README.md
-          git add README.md
-          git commit -m "Update via GitHub Actions"
-          # git push origin main
-          git push https://x-access-token:${{ secrets.ACTIONS_PAT }}@github.com/${{ github.repository }}.git main
+          ls
+          echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "当前时间戳: $(date +%s)"
+          docker stop frpc
+          docker commit gamecenter-mongo-1 ${{ secrets.DOCKER_USERNAME }}/mongo
+          docker-compose push mongo
