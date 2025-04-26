@@ -41,21 +41,8 @@ jobs:
       #       ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
 
       - name: 运行容器
-        # timeout-minutes: 10
-        post: 'cleanup.js'
         run: |
-          # 定义清理函数
-          cleanup() {
-            echo "工作流程被取消，执行清理..."
-            docker stop frpc
-            echo "清理完成"
-          }
-
-          # 捕获 SIGTERM 和 SIGINT 信号
-          trap cleanup SIGTERM SIGINT
-
           curl ipinfo.io
-          df -h
 
           curl -L "https://github.com/docker/compose/releases/download/v2.24.7/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           chmod +x /usr/local/bin/docker-compose
@@ -86,3 +73,9 @@ jobs:
           git commit -m "Update README via GitHub Actions"
           # git push origin main
           git push https://x-access-token:${{ secrets.ACTIONS_PAT }}@github.com/${{ github.repository }}.git main
+
+      - name: Cleanup
+        if: always()  # 确保无论成功或失败都运行
+        run: |
+          # rm -f temp-file.txt
+          echo "Cleanup completed"
