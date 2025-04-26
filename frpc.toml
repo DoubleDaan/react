@@ -25,11 +25,10 @@ remotePort = 4321
 [[proxies]]
 name = "RDP"
 type = "tcp"
-# localIP = "47.112.182.151"
 localIP = "8.218.143.95"
 localPort = 12345
 remotePort = 12345
-# docker run -d -p 12345:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:47.112.182.151:12345
+
 [[proxies]]
 name = "PROXY1"
 type = "tcp"
