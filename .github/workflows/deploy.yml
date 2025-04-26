@@ -60,6 +60,7 @@ jobs:
       - name: 保存数据库
         if: always()  # 确保无论成功或失败都运行
         run: |
+          cd gamecenter
           ls
           echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
           echo "当前时间戳: $(date +%s)"
