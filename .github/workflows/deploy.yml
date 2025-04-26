@@ -47,10 +47,9 @@ jobs:
           curl ipinfo.io
           
           echo "Run ID: ${{ github.run_id }}"
-          docker run -d -p 1234:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.218.143.95:1234
           sed -i -e 's/USER/${{ github.actor }}/' -e 's/PROXY1/PROXY1#${{ github.run_id }}/' -e 's/PROXY2/PROXY2#${{ github.run_id }}/' ./frpc.toml
           cat ./frpc.toml
-          docker run \
+          docker run -d \
           -v ./frpc.toml:/etc/frp/frpc.toml \
           --add-host host.docker.internal:172.17.0.1 \
           snowdreamtech/frpc

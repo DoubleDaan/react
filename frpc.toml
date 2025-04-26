@@ -11,7 +11,7 @@ auth.token = "2f1d3a0e-9b64-4b91-b76b-8cb4a2f2e5d3"
 [[proxies]]
 name = "SSH1"
 type = "tcp"
-localIP = "172.17.0.1"
+localIP = "8.218.143.95"
 localPort = 1234
 remotePort = 1234
 
@@ -21,6 +21,13 @@ type = "tcp"
 localIP = "8.218.143.95"
 localPort = 4321
 remotePort = 4321
+
+[[proxies]]
+name = "RDP"
+type = "tcp"
+localIP = "47.112.182.151"
+localPort = 12345
+remotePort = 12345
 
 [[proxies]]
 name = "PROXY1"
