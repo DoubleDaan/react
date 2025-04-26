@@ -1,5 +1,7 @@
 代理软件不能开启隧道，frpc.toml配置不能用域名
 
+netstat -ano | findstr /V "127\.0\.0\.1 \<10\. 192\.168\. 172\.[16-31]\. 0\.0\.0\.0 \[::\] ::1 fc00: fd00: fe80:"
+
 timeout 3 tcpdump -w traffic.pcap
 apt install tshark -y
 tshark -r traffic.pcap -q -z conv,ip -Y "!(ip.src==10.0.0.0/8 || ip.src==172.16.0.0/12 || ip.src==192.168.0.0/16 || ip.dst==10.0.0.0/8 || ip.dst==172.16.0.0/12 || ip.dst==192.168.0.0/16)"
