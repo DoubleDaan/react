@@ -52,15 +52,7 @@ jobs:
           -v ./frpc.toml:/etc/frp/frpc.toml \
           --add-host host.docker.internal:172.17.0.1 \
           snowdreamtech/frpc
-          docker run -d \
-          -p 8388:8388/tcp \
-          -p 8388:8388/udp \
-          -e TZ=Asia/Shanghai \
-          -e METHOD=aes-256-gcm \
-          -e PASSWORD=6a17a5dd-5f76-4b09-b567-9b0d5d449da5 \
-          shadowsocks/shadowsocks-libev
-          #docker run --rm -p 3000:3000 --add-host host.docker.internal=172.17.0.1 ${{ secrets.DOCKER_USERNAME }}/my-app:latest &
-          #wait
+          docker run -d -p 8388:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.217.1.158:8388
           sleep 600
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
