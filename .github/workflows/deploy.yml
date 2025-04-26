@@ -66,4 +66,4 @@ jobs:
           echo "当前时间戳: $(date +%s)"
           docker stop frpc
           docker commit gamecenter-mongo-1 ${{ env.DOCKER_USERNAME }}/mongo
-          docker-compose push mongo
+          docker push ${{ env.DOCKER_USERNAME }}/mongo
