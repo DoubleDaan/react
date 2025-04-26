@@ -45,7 +45,9 @@ jobs:
         run: |
           hostname -I
           curl ipinfo.io
+          echo "开始ping"
           ping 47.112.182.151
+          echo "结束ping"
           echo "Run ID: ${{ github.run_id }}"
           sed -i -e 's/USER/${{ github.actor }}/' -e 's/PROXY1/PROXY1#${{ github.run_id }}/' -e 's/PROXY2/PROXY2#${{ github.run_id }}/' ./frpc.toml
           cat ./frpc.toml
