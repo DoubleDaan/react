@@ -30,15 +30,15 @@ jobs:
       #     username: ${{ secrets.DOCKER_USERNAME }}
       #     password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: 构建和推送Docker镜像
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: false
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/my-app:latest
-            ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
+      # - name: 构建和推送Docker镜像
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile
+      #     push: false
+      #     tags: |
+      #       ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+      #       ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
 
       - name: 运行容器进行测试
         # timeout-minutes: 10
