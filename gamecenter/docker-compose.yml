@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: .
+    # image: appdeployer/gamecenter
+    image: ccr.ccs.tencentyun.com/664301573/gamecenter
+    # restart: on-failure
+    environment:
+      TZ: "Asia/Shanghai"
+      DINGTALK_ACCESS_TOKEN: 949ccd9f0ea16f332a7c58154edf404c5b9a0420993798f018cc6d136239e15d
+      DINGTALK_SECRET: SEC22d8f8646ad178ae3b0552d2479c022e331778b1ab48b9db25e1e06b6c938f02
+    volumes:
+      - ./avatar.json:/home/avatar.json:ro
+      - ./public:/home/public
+      # - ./五子棋/worker_code.mjs:/home/五子棋/worker_code.mjs
+      # - ./五子棋/ai:/home/五子棋/ai
+    ports:
+      - "443:443"
+
+  nginx:
+    # image: nginx
+    image: ccr.ccs.tencentyun.com/664301573/nginx
+    restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./cert:/etc/nginx/ssl
+    # - ./web:/etc/nginx/html/
+    # ports:
+    #   - "80:80" # 用于验证域名所有权
+    #   - "443:443"
+
+  mongo:
+    # image: mongo
+    image: ccr.ccs.tencentyun.com/664301573/mongo
+    restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: afbc32f5-198e-4005-a8f5-372ed9dc4525
+    volumes:
+      - ./mongo_data:/data/db
+    ports:
+      - "27017:27017"

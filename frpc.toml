@@ -30,6 +30,20 @@ localPort = 12345
 remotePort = 12345
 
 [[proxies]]
+name = "app"
+type = "tcp"
+localIP = "172.17.0.1"
+localPort = 443
+remotePort = 443
+
+[[proxies]]
+name = "mongodb"
+type = "tcp"
+localIP = "172.17.0.1"
+localPort = 27017
+remotePort = 27017
+
+[[proxies]]
 name = "PROXY1"
 type = "tcp"
 localIP = "172.17.0.1"

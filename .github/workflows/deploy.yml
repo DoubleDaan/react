@@ -40,7 +40,7 @@ jobs:
       #       ${{ secrets.DOCKER_USERNAME }}/my-app:latest
       #       ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
 
-      - name: 运行容器进行测试
+      - name: 运行容器
         # timeout-minutes: 10
         run: |
           hostname -I
@@ -54,7 +54,14 @@ jobs:
           --add-host host.docker.internal:172.17.0.1 \
           snowdreamtech/frpc
           docker run -d -p 8388:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.217.1.158:8388
+          
+          docker-compose up -d mongo
+          sleep 10
+          docker-compose up -d app
+          docker-compose logs -f
+          
           sleep 3600
+          
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           echo "$(curl https://api.ipify.org)" >> README.md
