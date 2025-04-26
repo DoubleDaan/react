@@ -3,6 +3,8 @@ import fetch from 'node-fetch';
 import os from 'os';
 import { promises as dns } from 'dns';
 
+
+
 async function getIP() {
     const response = await fetch('https://ipinfo.io/json');
     return response.json();
