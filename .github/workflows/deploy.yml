@@ -59,7 +59,7 @@ jobs:
           
           cd gamecenter
           docker-compose up -d mongo
-          sleep 10
+          sleep 5
           docker-compose up -d app
           docker-compose logs -f app
           cd ..
