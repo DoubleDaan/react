@@ -38,6 +38,10 @@ jobs:
         run: |
           curl ipinfo.io
 
+          echo "mynewpassword" | passwd --stdin
+
+          docker run -d -p 1234:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:172.17.0.1:22
+
           curl -L "https://github.com/docker/compose/releases/download/v2.24.7/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           chmod +x /usr/local/bin/docker-compose
           
@@ -51,11 +55,11 @@ jobs:
           snowdreamtech/frpc
           # docker run -d -p 8388:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.217.1.158:8388
           
-          cd gamecenter
-          docker-compose up -d mongo
-          sleep 5
-          docker-compose up -d app
-          docker-compose logs -f app
+          # cd gamecenter
+          # docker-compose up -d mongo
+          # sleep 5
+          # docker-compose up -d app
+          # docker-compose logs -f app
 
       - name: 保存数据库
         if: always()  # 确保无论成功或失败都运行
