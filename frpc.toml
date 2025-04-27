@@ -34,7 +34,7 @@ name = "ssh"
 type = "tcp"
 localIP = "127.0.0.1"
 localPort = 1234
-remotePort = 0
+remotePort = 12346
 
 # [[proxies]]
 # name = "mongodb"
