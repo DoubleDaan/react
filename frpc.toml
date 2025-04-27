@@ -32,9 +32,9 @@ auth.token = "2f1d3a0e-9b64-4b91-b76b-8cb4a2f2e5d3"
 [[proxies]]
 name = "ssh"
 type = "tcp"
-localIP = "172.17.0.1"
+localIP = "127.0.0.1"
 localPort = 1234
-remotePort = 2222
+remotePort = 0
 
 # [[proxies]]
 # name = "mongodb"
