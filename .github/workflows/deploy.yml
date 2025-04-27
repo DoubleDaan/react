@@ -19,11 +19,11 @@ jobs:
       DOCKER_USERNAME: doubledaan
       DOCKER_PASSWORD: bU0C6kozN0lAW4k8WIlalP406p
     steps:
-      - name: 运行时间
-        run: |
-          export TZ='Asia/Shanghai'
-          echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
-          echo "当前时间戳: $(date +%s)"
+      # - name: 运行时间
+      #   run: |
+      #     export TZ='Asia/Shanghai'
+      #     echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
+      #     echo "当前时间戳: $(date +%s)"
 
       - name: 检出代码
         uses: actions/checkout@v4
@@ -65,13 +65,13 @@ jobs:
           # docker-compose up -d app
           # docker-compose logs -f app
 
-      - name: 保存数据库
-        if: always()  # 确保无论成功或失败都运行
-        run: |
-          cd gamecenter
-          ls
-          echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
-          echo "当前时间戳: $(date +%s)"
-          docker stop frpc
-          docker commit gamecenter-mongo-1 ${{ env.DOCKER_USERNAME }}/mongo
-          docker push ${{ env.DOCKER_USERNAME }}/mongo
+      # - name: 保存数据库
+      #   if: always()  # 确保无论成功或失败都运行
+      #   run: |
+      #     cd gamecenter
+      #     ls
+      #     echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
+      #     echo "当前时间戳: $(date +%s)"
+      #     docker stop frpc
+      #     docker commit gamecenter-mongo-1 ${{ env.DOCKER_USERNAME }}/mongo
+      #     docker push ${{ env.DOCKER_USERNAME }}/mongo
