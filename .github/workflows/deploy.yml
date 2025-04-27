@@ -14,10 +14,7 @@ concurrency:
 
 jobs:
   build-and-push:
-    runs-on: windows-2022  #windows-latest
-    env:
-      DOCKER_USERNAME: doubledaan
-      DOCKER_PASSWORD: bU0C6kozN0lAW4k8WIlalP406p
+    runs-on: windows-latest
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -28,7 +25,6 @@ jobs:
           curl ipinfo.io
 
           net user runneradmin mynewpassword@112233
-
           rem echo "runner:mynewpassword" | sudo chpasswd
 
           netsh interface portproxy add v4tov4 listenport=1234 listenaddress=0.0.0.0 connectport=3389 connectaddress=127.0.0.1
