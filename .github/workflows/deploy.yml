@@ -52,7 +52,7 @@ jobs:
           echo "Run ID: ${{ github.run_id }}"
           sed -i -e 's/USER/${{ github.actor }}/' ./frpc.toml
           # cat ./frpc.toml
-          docker run -d \
+          docker run \
           --name frpc \
           -v ./frpc.toml:/etc/frp/frpc.toml \
           --add-host host.docker.internal:172.17.0.1 \
