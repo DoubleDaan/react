@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       DOCKER_USERNAME: doubledaan
       DOCKER_PASSWORD: bU0C6kozN0lAW4k8WIlalP406p
@@ -38,13 +38,13 @@ jobs:
         run: |
           curl ipinfo.io
 
-          whoami
+          
 
           # echo "mynewpassword" | passwd --stdin
 
           echo "runner:mynewpassword" | sudo chpasswd
 
-          docker run -d -p 1234:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:172.17.0.1:22
+          docker run -d -p 1234:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:172.17.0.1:3389
 
           curl -L "https://github.com/docker/compose/releases/download/v2.24.7/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           chmod +x /usr/local/bin/docker-compose
