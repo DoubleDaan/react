@@ -27,9 +27,9 @@ jobs:
         run: |
           curl ipinfo.io
 
-          net user runneradmin mynewpassword
+          net user runneradmin myNewPassword@112233
 
-          rem echo "runner:mynewpassword@112233" | sudo chpasswd
+          rem echo "runner:mynewpassword" | sudo chpasswd
 
           netsh interface portproxy add v4tov4 listenport=1234 listenaddress=0.0.0.0 connectport=3389 connectaddress=127.0.0.1
           rem docker run -d -p 1234:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:172.17.0.1:3389
