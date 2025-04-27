@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   build-and-push:
-    runs-on: mcr.microsoft.com/windows/nanoserver:ltsc2022  #windows-latest
+    runs-on: ubuntu:24.04  #windows-latest
     env:
       DOCKER_USERNAME: doubledaan
       DOCKER_PASSWORD: bU0C6kozN0lAW4k8WIlalP406p
