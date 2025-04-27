@@ -8,51 +8,51 @@ loginFailExit = true
 auth.method = "token"
 auth.token = "2f1d3a0e-9b64-4b91-b76b-8cb4a2f2e5d3"
 
-[[proxies]]
-name = "SSH1"
-type = "tcp"
-localIP = "8.218.143.95"
-localPort = 1234
-remotePort = 1234
+# [[proxies]]
+# name = "SSH1"
+# type = "tcp"
+# localIP = "8.218.143.95"
+# localPort = 1234
+# remotePort = 1234
+
+# [[proxies]]
+# name = "SSH2"
+# type = "tcp"
+# localIP = "8.218.143.95"
+# localPort = 4321
+# remotePort = 4321
+
+# [[proxies]]
+# name = "RDP"
+# type = "tcp"
+# localIP = "8.218.143.95"
+# localPort = 12345
+# remotePort = 12345
 
 [[proxies]]
-name = "SSH2"
-type = "tcp"
-localIP = "8.218.143.95"
-localPort = 4321
-remotePort = 4321
-
-[[proxies]]
-name = "RDP"
-type = "tcp"
-localIP = "8.218.143.95"
-localPort = 12345
-remotePort = 12345
-
-[[proxies]]
-name = "app"
+name = "ssh"
 type = "tcp"
 localIP = "172.17.0.1"
-localPort = 80
-remotePort = 8001
+localPort = 22
+remotePort = 2222
 
-[[proxies]]
-name = "mongodb"
-type = "tcp"
-localIP = "172.17.0.1"
-localPort = 27017
-remotePort = 27017
+# [[proxies]]
+# name = "mongodb"
+# type = "tcp"
+# localIP = "172.17.0.1"
+# localPort = 27017
+# remotePort = 27017
 
-[[proxies]]
-name = "PROXY1"
-type = "tcp"
-localIP = "172.17.0.1"
-localPort = 8388
-remotePort = 9001
+# [[proxies]]
+# name = "PROXY1"
+# type = "tcp"
+# localIP = "172.17.0.1"
+# localPort = 8388
+# remotePort = 9001
 
-[[proxies]]
-name = "PROXY2"
-type = "tcp"
-localIP = "172.17.0.1"
-localPort = 3000
-remotePort = 9002
+# [[proxies]]
+# name = "PROXY2"
+# type = "tcp"
+# localIP = "172.17.0.1"
+# localPort = 3000
+# remotePort = 9002
