@@ -39,26 +39,19 @@ jobs:
         run: |
           curl ipinfo.io
 
-          
-
-          # echo "mynewpassword" | passwd --stdin
-
           echo "runner:mynewpassword" | sudo chpasswd
 
           docker run -d -p 1234:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:172.17.0.1:3389
 
-          curl -L "https://github.com/docker/compose/releases/download/v2.24.7/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          chmod +x /usr/local/bin/docker-compose
+          rem curl -L "https://github.com/docker/compose/releases/download/v2.24.7/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          rem chmod +x /usr/local/bin/docker-compose
           
           echo "Run ID: ${{ github.run_id }}"
           sed -i -e 's/USER/${{ github.actor }}/' ./frpc.toml
-          # cat ./frpc.toml
-          docker run \
-          --name frpc \
-          -v ./frpc.toml:/etc/frp/frpc.toml \
-          --add-host host.docker.internal:172.17.0.1 \
-          snowdreamtech/frpc
-          # docker run -d -p 8388:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.217.1.158:8388
+          type ./frpc.toml
+          rem cat ./frpc.toml
+          docker run --name frpc -v ./frpc.toml:/etc/frp/frpc.toml snowdreamtech/frpc
+          rem docker run -d -p 8388:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.217.1.158:8388
           
           # cd gamecenter
           # docker-compose up -d mongo
