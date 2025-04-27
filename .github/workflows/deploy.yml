@@ -35,6 +35,7 @@ jobs:
           password: ${{ env.DOCKER_PASSWORD }}
 
       - name: 运行容器
+        shell: cmd
         run: |
           curl ipinfo.io
 
