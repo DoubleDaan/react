@@ -27,7 +27,7 @@ jobs:
         run: |
           curl ipinfo.io
 
-          net user runneradmin myNewPassword@112233
+          net user runneradmin mynewpassword@112233
 
           rem echo "runner:mynewpassword" | sudo chpasswd
 
