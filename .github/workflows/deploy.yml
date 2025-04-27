@@ -19,20 +19,8 @@ jobs:
       DOCKER_USERNAME: doubledaan
       DOCKER_PASSWORD: bU0C6kozN0lAW4k8WIlalP406p
     steps:
-      # - name: 运行时间
-      #   run: |
-      #     export TZ='Asia/Shanghai'
-      #     echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
-      #     echo "当前时间戳: $(date +%s)"
-
       - name: 检出代码
         uses: actions/checkout@v4
-
-      - name: 登录到Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ env.DOCKER_USERNAME }}
-          password: ${{ env.DOCKER_PASSWORD }}
 
       - name: 运行容器
         shell: cmd
@@ -46,26 +34,4 @@ jobs:
           docker run -d -p 1234:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:172.17.0.1:3389
           frpc -c frpc.toml
 
-          rem curl -L "https://github.com/docker/compose/releases/download/v2.24.7/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          rem chmod +x /usr/local/bin/docker-compose
           
-          echo "Run ID: ${{ github.run_id }}"
-          sed -i -e 's/USER/${{ github.actor }}/' ./frpc.toml
-          type ./frpc.toml
-          rem cat ./frpc.toml
-          docker pull snowdreamtech/frpc
-          docker run --name frpc -v ./frpc.toml:/etc/frp/frpc.toml snowdreamtech/frpc
-          rem docker run -d -p 8388:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:8.217.1.158:8388
-
-
-
-      # - name: 保存数据库
-      #   if: always()  # 确保无论成功或失败都运行
-      #   run: |
-      #     cd gamecenter
-      #     ls
-      #     echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S')"
-      #     echo "当前时间戳: $(date +%s)"
-      #     docker stop frpc
-      #     docker commit gamecenter-mongo-1 ${{ env.DOCKER_USERNAME }}/mongo
-      #     docker push ${{ env.DOCKER_USERNAME }}/mongo
