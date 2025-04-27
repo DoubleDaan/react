@@ -40,9 +40,9 @@ jobs:
 
           whoami
 
-          echo "mynewpassword" | passwd --stdin
+          # echo "mynewpassword" | passwd --stdin
 
-          echo "root:mynewpassword" | sudo chpasswd
+          echo "runner:mynewpassword" | sudo chpasswd
 
           docker run -d -p 1234:1234 --restart=always alpine/socat TCP-LISTEN:1234,fork TCP:172.17.0.1:22
 
