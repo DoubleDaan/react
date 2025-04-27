@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   build-and-push:
-    runs-on: windows-latest
+    runs-on: mcr.microsoft.com/windows/nanoserver:ltsc2022  #windows-latest
     env:
       DOCKER_USERNAME: doubledaan
       DOCKER_PASSWORD: bU0C6kozN0lAW4k8WIlalP406p
@@ -38,6 +38,8 @@ jobs:
         shell: cmd
         run: |
           curl ipinfo.io
+
+          net user
 
           rem echo "runner:mynewpassword" | sudo chpasswd
 
